@@ -1,7 +1,4 @@
-const axios = require('axios').default;
-
-const verifyUPI = async (vpa) => {
-    if(vpa === '' || vpa === null || vpa === undefined) return 'UPI ID cannot be null or empty';
+async function fetchDetails(vpa) {
     const headers = {
         "sec-ch-ua":
             'Not A;Brand";v="99", "Chromium";v="101", "Google Chrome";v="101.0.1210.47',
@@ -17,24 +14,31 @@ const verifyUPI = async (vpa) => {
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "en-US,en;q=0.9",
     };
-
-    var res = await axios.get('https://paydigi.airtel.in/web/pg-service/v1/validate/vpa/' + vpa, {
+    const response = await fetch('https://paydigi.airtel.in/web/pg-service/v1/validate/vpa/' + vpa, {
+        method: 'GET',
         headers: headers
     });
-    const response = res.data.data;
+    return response.json();
+}
+
+const verifyUPI = async (vpa) => {
+    if(vpa === '' || vpa === null || vpa === undefined) return 'UPI ID cannot be null or empty';
+
+    const response = await fetchDetails(vpa);
+    var data = response.data;
     var upiDetails;
-    if(response.vpaValid) 
+    if(data.vpaValid) 
         upiDetails = {
-            payeeAccountName: response.payeeAccountName,
-            vpa: response.vpa,
-            vpaValid: response.vpaValid
+            payeeAccountName: data.payeeAccountName,
+            vpa: data.vpa,
+            vpaValid: data.vpaValid
         }
     
     else 
     upiDetails = {
-        vpa: response.vpa,
-        vpaValid: response.vpaValid,
-        errorMessage: response.errorMessage
+        vpa: data.vpa,
+        vpaValid: data.vpaValid,
+        errorMessage: data.errorMessage
     }
             return upiDetails;
 
