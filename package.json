@@ -1,6 +1,6 @@
 {
   "name": "validate-upi-id",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A free js library to validate and verify a UPI ID.",
   "main": "index.js",
   "scripts": {
