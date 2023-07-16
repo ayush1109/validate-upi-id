@@ -43,6 +43,7 @@ verifyUPI("7290928675@ybl").then(data => {
   errorMessage: 'Invalid UPI ID!'
 }
 */
+```
 
 For any inquiries, questions, or clarifications regarding this library, we encourage you to reach out to us via email at **gargayush308@gmail.com**. We are here to provide prompt assistance and address any doubts you may have about the library's functionality, implementation, or any other related concerns. Your feedback is valuable to us, and we are committed to ensuring a seamless experience with our library. Please don't hesitate to contact us; we look forward to assisting you. 
 
